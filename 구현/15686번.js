@@ -23,11 +23,11 @@ function solution() {
       }
     }
   }
-
+  let result = Infinity; // solution{}블록내에서 result가 선언되고 dfs함수도 선언되어있으므로 dfs가 result값을 읽을 수 있다.
   if (chickenPlace.length === M) {
     console.log(a(houses, chickenPlace, N));
   } else {
-    var result = Infinity;
+    // let result = Infinity; -> result가 else블록에서만 유효하므로 dfs함수를 js엔진이 읽을때 다른 블록이라 result의 선언 조차 찾지못함.
     dfs(-1, [], chickenPlace, N);
     console.log(result);
   }
