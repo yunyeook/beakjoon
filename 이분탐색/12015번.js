@@ -13,37 +13,50 @@ function solution() {
     let num = newInput[i];
     if (i == 0 || arr[arr.length - 1] < num) {
       arr.push(num);
+    } else if (arr[0] > num) {
+      arr[0] = num;
     } else {
       let startIndex = 0;
       let endIndex = arr.length - 1;
+      if (startIndex == endIndex) {
+        arr[startIndex] = num;
+        continue;
+      }
+
       let midIndex;
       while (startIndex < endIndex) {
-        midIndex = startIndex + Math.floor((endIndex - startIndex) / 2);
+        midIndex = Math.floor((endIndex + startIndex) / 2);
         if (arr[midIndex] == num) {
           break;
         }
         if (arr[midIndex] > num) {
-          if (endIndex == midIndex) {
-            endIndex = midIndex - 1;
-          } else {
-            endIndex = midIndex;
+          endIndex = midIndex - 1;
+          //수열의 값이 arr[end]보다 크고 end!=start라면 mid값이 다시 갱신되므로 멈춰야하므로 start에 end를 넣음.
+          if (arr[endIndex] < num) {
+            startIndex = endIndex;
           }
         } else if (arr[midIndex] < num) {
-          if (startIndex == midIndex) {
-            startIndex = midIndex + 1;
-          } else {
-            startIndex = midIndex;
+          startIndex = midIndex + 1;
+          //수열의 값이 arr[start]보다 작고 start!=end라면 mid값이 다시 갱신되므로 멈춰야하므로 end에 start를 넣음.
+          if (arr[startIndex] > num) {
+            endIndex = startIndex;
           }
         }
-        if (endIndex - startIndex == 1 && arr[startIndex] < num && arr[endIndex] > num) {
-          arr[endIndex] = num;
-          break;
-        }
       }
-      if (arr[midIndex] == num) {
-        continue;
-      } else if (startIndex == endIndex) {
-        arr[startIndex] = num;
+      if (startIndex == endIndex) {
+        if (startIndex < midIndex) {
+          if (arr[startIndex] > num) {
+            arr[startIndex] = num;
+          } else if (arr[startIndex] < num) {
+            arr[midIndex] = num;
+          }
+        } else if (startIndex > midIndex) {
+          if (arr[midIndex] > num) {
+            arr[midIndex] = num;
+          } else if (arr[midIndex] < num) {
+            arr[startIndex] = num;
+          }
+        }
       }
     }
   }
