@@ -6,6 +6,5 @@ function solution() {
     .toString()
     .trim()
     .split('\n');
-
 }
 solution();
