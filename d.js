@@ -1,10 +1,12 @@
-let obj = {
-  1: { adj: new Set() },
-};
-obj[1].adj.add(1);
-obj[1].adj.add(2);
-obj[1].adj.add(3);
+let s = new Set();
+s.add(1);
+s.add(2);
+s.add(3);
+let ss = new Set();
+ss.add(1);
+ss.add(5);
 
-obj[1].adj.forEach(e => {
-  console.log(e);
+ss.forEach(elm => {
+  s.add(elm);
 });
+console.log(s);
